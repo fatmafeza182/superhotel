@@ -16,19 +16,7 @@ export const useGetRooms = ():UseRoomProps => {
     useEffect(() => {
       const fetchRooms = async () => {
         try {
-          const token = localStorage.getItem("accessToken");
-          if (!token) {
-            throw new Error("Kullanici giriş yapmamiş. Lütfen giriş yapin.");
-          }
-  
-          const response = await axios.get("http://127.0.0.1:8000/api/rooms/", {
-            headers: {
-              Authorization: `Bearer ${token}`, 
-            },
-          });
-  
-          console.log("API Yaniti:", response.data); 
-  
+          const response = await axios.get("http://127.0.0.1:8000/api/rooms/");
           setRooms(response.data); 
         } catch (err: any) {
           console.error("API Hatasi:", err);
@@ -43,33 +31,26 @@ export const useGetRooms = ():UseRoomProps => {
 export const useHomeGetRooms = ():UseRoomProps => {
   const [rooms, setRooms] = useState<Room | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
   useEffect(() => {
     const fetchRooms = async () => {
-      try {
-        const token = localStorage.getItem("accessToken");
-        if (!token) {
-          throw new Error("Kullanici giriş yapmamiş. Lütfen giriş yapin.");
-        }
-
-        const response = await axios.get("http://127.0.0.1:8000/api/rooms/", {
-          headers: {
-            Authorization: `Bearer ${token}`, 
-          },
-        });
-
-        // console.log("API Yaniti:", response.data); 
-
-        setRooms(response.data); 
-      } catch (err: any) {
-        console.error("API Hatasi:", err);
-        setError(err.response?.data?.detail || "Bilinmeyen bir hata oluştu.");
-      }
+        axios.get("http://127.0.0.1:8000/api/rooms/", )
+        .then((response) => {
+          setRooms(response.data);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error("Hata", err);
+          setError(err.message);
+          setLoading(false);
+      })
     };
 
     fetchRooms();
   }, []);
    
-return { rooms, error };
+return { rooms, error, loading };
 }
 
 interface UseDetailRoomProps {

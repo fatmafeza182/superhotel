@@ -1711,6 +1711,17 @@ video {
   }
 }
 
+@media (min-width: 1280px) {
+
+  .xl\:mt-64 {
+    margin-top: 16rem;
+  }
+
+  .xl\:gap-1 {
+    gap: 0.25rem;
+  }
+}
+
 .\[\&\:has\(\[aria-selected\]\)\]\:bg-accent:has([aria-selected]) {
   background-color: hsl(var(--accent));
 }
