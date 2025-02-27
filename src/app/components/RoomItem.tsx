@@ -12,7 +12,7 @@ const RoomItem = ({ room }: RoomItemProps) => {
     ? room.image
     : `http://localhost:8000/${room?.image}`;
   return (
-    <div className="flex flex-col  ">
+    <div className="flex flex-col p-5 xl:mt-64 xl:gap-1 ">
       <div className="shadow-lg">
         <Image
           src={imageUrl}
